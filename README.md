@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ASL Master: AI-Powered Sign Language Learning Platform
 
-## Getting Started
+ASL Master is a cutting-edge educational platform designed to bridge the communication gap through American Sign Language (ASL). Leveraging **Computer Vision** and **Real-time AI**, the platform provides an interactive environment for users to learn, practice, and master sign language.
 
-First, run the development server:
+![ASL Master Preview](https://via.placeholder.com/1200x600?text=ASL+Master+Platform+Preview)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Key Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Real-time AI Recognition:** Powered by **MediaPipe** and **TensorFlow.js**, our practice studio identifies hand gestures and fingerspelling in real-time with high fidelity.
+- **Structured Curriculum:** Organized learning paths featuring Units, Chapters, and Lessons tailored for progressive mastery.
+- **Vocabulary Mastery Dashboard:** Track your progress through every sign, with automated mastery calculations based on practice performance.
+- **Centralized Sign Library:** A robust content management system for instructors to manage high-quality sign resources and video assets.
+- **Personalized Progress:** Detailed user profiles tracking lesson completion, accuracy rates, and learning streaks.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠️ Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Framework:** [Next.js 15+](https://nextjs.org/) (App Router)
+- **Frontend:** [React 19](https://react.dev/), [Tailwind CSS 4](https://tailwindcss.com/), [Framer Motion](https://www.framer.com/motion/)
+- **AI/Vision:** [MediaPipe Hands & Holistic](https://developers.google.com/mediapipe), [TensorFlow.js](https://www.tensorflow.org/js)
+- **Database & Auth:** [Supabase](https://supabase.com/), [Prisma ORM](https://www.prisma.io/), [NextAuth.js v5](https://next-auth.js.org/)
+- **UI Components:** [Radix UI](https://www.radix-ui.com/), [Lucide React](https://lucide.dev/)
 
-## Learn More
+## 📦 Getting Started
 
-To learn more about Next.js, take a look at the following resources:
+### Prerequisites
+- Node.js 20+ 
+- A Supabase project (PostgreSQL)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Installation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/your-username/asl-master.git
+   cd asl-master
+   ```
 
-## Deploy on Vercel
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Environment Setup:**
+   Create a `.env` file in the root directory and add your credentials:
+   ```env
+   DATABASE_URL="your_postgresql_url"
+   DIRECT_URL="your_direct_url"
+   NEXTAUTH_SECRET="your_secret"
+   NEXT_PUBLIC_SUPABASE_URL="your_url"
+   NEXT_PUBLIC_SUPABASE_ANON_KEY="your_key"
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. **Database Migration:**
+   ```bash
+   npx prisma generate
+   npx prisma db push
+   ```
+
+5. **Run Development Server:**
+   ```bash
+   npm run dev
+   ```
+
+## 📄 License
+This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
+
+---
+*Built with ❤️ for the ASL Community.*

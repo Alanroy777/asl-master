@@ -1,0 +1,336 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String               @id @default(cuid())
+  name             String?
+  email            String               @unique
+  password         String?
+  role             Role                 @default(LEARNER)
+  image            String?
+  phone            String?
+  age              Int?
+  address          String?
+  qualification    String?
+  background       String?
+  emailVerified    DateTime?
+  createdAt        DateTime             @default(now())
+  updatedAt        DateTime             @updatedAt
+  accounts         Account[]
+  practiceSessions PracticeSession[]
+  profile          Profile?
+  sessions         Session[]
+  lessonProgress   UserLessonProgress[]
+  quizAttempts     UserQuizAttempt[]
+  signProgress     UserSignProgress[]
+  xpLogs           XPLog[]
+  fingerspellingRecords FingerspellingRecord[]
+  
+  tutorId          String?
+  tutor            User?                @relation("TutorToLearner", fields: [tutorId], references: [id])
+  students         User[]               @relation("TutorToLearner")
+  createdLevels    Level[]              @relation("LevelInstructorCreated")
+  createdLessons   Lesson[]             @relation("LessonInstructorCreated")
+}
+
+model Profile {
+  id                    String          @id @default(cuid())
+  userId                String          @unique
+  bio                   String?
+  learningGoal          String?
+  experienceLevel       ExperienceLevel @default(BEGINNER)
+  totalXP               Int             @default(0)
+  currentStreak         Int             @default(0)
+  longestStreak         Int             @default(0)
+  lastActiveDate        DateTime        @default(now())
+  totalPracticeSessions Int             @default(0)
+  totalPracticeTime     Int             @default(0)
+  averageAccuracy       Float           @default(0)
+  user                  User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Level {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  orderIndex  Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  lessons     Lesson[]
+
+  createdById String?
+  createdBy   User?    @relation("LevelInstructorCreated", fields: [createdById], references: [id])
+}
+
+model Lesson {
+  id              String               @id @default(cuid())
+  title           String
+  description     String?
+  slug            String               @unique
+  orderIndex      Int                  @default(0)
+  xpReward        Int                  @default(50)
+  isLockedDefault Boolean              @default(true)
+  levelId         String
+  createdAt       DateTime             @default(now())
+  updatedAt       DateTime             @updatedAt
+  level           Level                @relation(fields: [levelId], references: [id], onDelete: Cascade)
+  quiz            Quiz?
+  signs           Sign[]
+  lessonSigns     LessonSign[]
+  userProgress    UserLessonProgress[]
+
+  createdById     String?
+  createdBy       User?                @relation("LessonInstructorCreated", fields: [createdById], references: [id])
+}
+
+model Sign {
+  id               String             @id @default(cuid())
+  word             String
+  description      String?
+  videoUrl         String
+  orderIndex       Int                @default(0)
+  category         String             @default("General")
+  lessonId         String?
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  difficulty       Int                @default(1)
+  landmarkData     Json?
+  questions        QuizQuestion[]
+  lesson           Lesson?            @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  @@index([word])
+}
+
+model Quiz {
+  id        String            @id @default(cuid())
+  title     String
+  lessonId  String            @unique
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+  lesson    Lesson            @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  questions QuizQuestion[]
+  attempts  UserQuizAttempt[]
+}
+
+model QuizQuestion {
+  id         String       @id @default(cuid())
+  quizId     String
+  type       QuestionType @default(MULTIPLE_CHOICE)
+  text       String
+  imageUrl   String?
+  signId     String?
+  orderIndex Int          @default(0)
+  answers    QuizAnswer[]
+  quiz       Quiz         @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  sign       Sign?        @relation(fields: [signId], references: [id])
+}
+
+model QuizAnswer {
+  id         String       @id @default(cuid())
+  questionId String
+  text       String
+  isCorrect  Boolean      @default(false)
+  orderIndex Int          @default(0)
+  question   QuizQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+}
+
+model UserQuizAttempt {
+  id          String   @id @default(cuid())
+  userId      String
+  quizId      String
+  score       Int
+  passed      Boolean  @default(false)
+  completedAt DateTime @default(now())
+  quiz        Quiz     @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model UserLessonProgress {
+  id          String    @id @default(cuid())
+  userId      String
+  lessonId    String
+  completed   Boolean   @default(false)
+  completedAt DateTime?
+  timeSpent   Int       @default(0)
+  score       Int       @default(0)
+  attempts    Int       @default(0)
+  lesson      Lesson    @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, lessonId])
+}
+
+model UserSignProgress {
+  id               String       @id @default(cuid())
+  userId           String
+  signId           String
+  practiceAttempts Int          @default(0)
+  mastered         Boolean      @default(false)
+  masteryScore     Float        @default(0)
+  masteryLevel     MasteryLevel @default(WEAK)
+  lastPracticedAt  DateTime     @default(now())
+  sign             SignsLibrary @relation(fields: [signId], references: [id], onDelete: Cascade)
+  user             User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, signId])
+}
+
+model XPLog {
+  id        String   @id @default(cuid())
+  userId    String
+  amount    Int
+  source    String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model PracticeSession {
+  id              String   @id @default(cuid())
+  userId          String
+  signId          String?
+  durationSeconds Int
+  attempts        Int      @default(1)
+  signsPracticed  Int      @default(1)
+  accuracy        Int
+  createdAt       DateTime @default(now())
+  sign            SignsLibrary? @relation(fields: [signId], references: [id])
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  email     String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([email])
+}
+
+model SignsLibrary {
+  id                 String       @id @default(cuid())
+  name               String
+  category           LibraryCategory
+  videoUrl           String
+  thumbnailUrl       String?
+  landmarkBlueprint  Json?
+  source             String       @default("custom")
+  difficulty         LibraryDifficulty @default(beginner)
+  tags               String[]     @default([])
+  createdAt          DateTime     @default(now())
+  createdById        String?
+  lessonSigns        LessonSign[]
+  userProgress       UserSignProgress[]
+  practiceSessions   PracticeSession[]
+
+  @@index([name])
+  @@index([category])
+  @@index([difficulty])
+  @@map("signs_library")
+}
+
+model LessonSign {
+  id               String        @id @default(cuid())
+  lessonId         String
+  signId           String?
+  customVideoUrl   String?
+  customBlueprint  Json?
+  orderIndex       Int           @default(0)
+  useLibrary       Boolean       @default(true)
+  createdAt        DateTime      @default(now())
+  lesson           Lesson        @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  librarySign      SignsLibrary? @relation(fields: [signId], references: [id], onDelete: SetNull)
+
+  @@index([lessonId])
+  @@map("lesson_signs")
+}
+
+enum Role {
+  LEARNER
+  INSTRUCTOR
+  ADMIN
+}
+
+enum ExperienceLevel {
+  BEGINNER
+  SOME_KNOWLEDGE
+  EXPERT
+}
+
+enum MasteryLevel {
+  WEAK
+  IMPROVING
+  STRONG
+  MASTERED
+}
+
+enum QuestionType {
+  MULTIPLE_CHOICE
+  REVERSE_RECOGNITION
+}
+
+enum LibraryCategory {
+  alphabet
+  numbers
+  greetings
+  common_words
+  custom
+}
+
+enum LibraryDifficulty {
+  beginner
+  intermediate
+  advanced
+}
+
+model FingerspellingRecord {
+  id              String   @id @default(cuid())
+  userId          String
+  gameType        String   // 'TIME_TRIAL' or 'WORD_SPELL'
+  score           Float    // time in seconds
+  mistakes        Int      @default(0)
+  createdAt       DateTime @default(now())
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}

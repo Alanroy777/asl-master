@@ -1,0 +1,86 @@
+[
+  {
+    "id": "cmlnclss80000uookcjx6rat6",
+    "title": "Introduction",
+    "description": "Learn the manual alphabet, numbers, and basic greetings",
+    "orderIndex": 1,
+    "createdAt": "2026-02-15T06:12:12.916Z",
+    "updatedAt": "2026-02-15T06:12:12.916Z",
+    "lessons": [
+      {
+        "id": "cmlncpaia0002uookntxr52qs",
+        "title": "Alphabet A-E",
+        "description": "New Lesson",
+        "slug": "alphabet-a-e-fbrmp",
+        "orderIndex": 1,
+        "xpReward": 50,
+        "isLockedDefault": true,
+        "levelId": "cmlnclss80000uookcjx6rat6",
+        "createdAt": "2026-02-15T06:14:56.477Z",
+        "updatedAt": "2026-02-15T06:14:56.477Z",
+        "signs": [
+          {
+            "id": "cmlndf168000cuook1tpjk402",
+            "word": "C",
+            "description": null,
+            "videoUrl": "https://www.youtube.com/watch?v=14R8Wp_jF7k",
+            "orderIndex": 2,
+            "difficulty": 1,
+            "category": "Alphabet",
+            "lessonId": "cmlncpaia0002uookntxr52qs",
+            "createdAt": "2026-02-15T06:34:57.584Z",
+            "updatedAt": "2026-02-15T06:34:57.584Z"
+          },
+          {
+            "id": "cmlndfqkw000guookokblga6k",
+            "word": "D",
+            "description": null,
+            "videoUrl": "https://www.youtube.com/watch?v=14R8Wp_jF7k",
+            "orderIndex": 4,
+            "difficulty": 1,
+            "category": "Alphabet",
+            "lessonId": "cmlncpaia0002uookntxr52qs",
+            "createdAt": "2026-02-15T06:35:30.513Z",
+            "updatedAt": "2026-02-15T06:35:30.513Z"
+          },
+          {
+            "id": "cmlndg27a000iuook1u3ar8id",
+            "word": "E",
+            "description": null,
+            "videoUrl": "https://www.youtube.com/watch?v=14R8Wp_jF7k",
+            "orderIndex": 5,
+            "difficulty": 1,
+            "category": "Alphabet",
+            "lessonId": "cmlncpaia0002uookntxr52qs",
+            "createdAt": "2026-02-15T06:35:45.486Z",
+            "updatedAt": "2026-02-15T06:35:45.486Z"
+          },
+          {
+            "id": "cmlnnxbxh0001uok8rs3q16uq",
+            "word": "A",
+            "description": null,
+            "videoUrl": "https://www.youtube.com/watch?v=14R8Wp_jF7k",
+            "orderIndex": 3,
+            "difficulty": 1,
+            "category": "Alphabet",
+            "lessonId": "cmlncpaia0002uookntxr52qs",
+            "createdAt": "2026-02-15T11:29:07.493Z",
+            "updatedAt": "2026-02-15T11:29:07.493Z"
+          },
+          {
+            "id": "cmlnnxq380003uok84prlz6ce",
+            "word": "B",
+            "description": null,
+            "videoUrl": "https://www.youtube.com/watch?v=14R8Wp_jF7k",
+            "orderIndex": 4,
+            "difficulty": 1,
+            "category": "Alphabet",
+            "lessonId": "cmlncpaia0002uookntxr52qs",
+            "createdAt": "2026-02-15T11:29:25.844Z",
+            "updatedAt": "2026-02-15T11:29:25.844Z"
+          }
+        ]
+      }
+    ]
+  }
+]
