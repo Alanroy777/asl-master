@@ -1,7 +1,7 @@
 'use client'
 
 import { useActionState, useRef, Suspense } from 'react'
-import { verifyOtp } from '@/app/lib/actions'
+import { verifyOtp } from '@/app/lib/emailActions'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import AuthLayout from '@/components/auth/auth-layout'

@@ -1,7 +1,7 @@
 'use client'
 
 import { useActionState } from 'react'
-import { forgotPassword } from '@/app/lib/actions'
+import { forgotPassword } from '@/app/lib/emailActions'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'

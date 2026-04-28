@@ -1,7 +1,7 @@
 'use client'
 
 import { useActionState, useState, useEffect, Suspense } from 'react'
-import { resetPassword } from '@/app/lib/actions'
+import { resetPassword } from '@/app/lib/emailActions'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import Link from 'next/link'

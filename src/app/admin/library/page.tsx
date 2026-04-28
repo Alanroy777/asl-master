@@ -6,7 +6,7 @@ import { getAdminStats } from '@/app/lib/actions'
 import { getLibrarySigns } from '@/lib/supabase/libraryQueries'
 import { redirect } from 'next/navigation'
 import { auth } from '@/auth'
-import { LibraryManagerClient } from '@/pages/admin/LibraryManager'
+import { LibraryManagerClient } from '@/components/admin/LibraryManager'
 
 export const metadata = {
   title: 'Sign Resource Library – Admin Console',
