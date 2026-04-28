@@ -136,7 +136,7 @@ export async function getLevels() {
         if (!session?.user?.id) return { createdById: null }
         
         const user = await prisma.user.findUnique({
-            where: { id: session.user.id },
+            where: { id: session?.user?.id },
             select: { id: true, role: true, tutorId: true }
         })
 
@@ -197,7 +197,7 @@ export async function getLesson(slug: string) {
     if (!session?.user?.id) return null
     
     const user = await prisma.user.findUnique({
-        where: { id: session.user.id },
+        where: { id: session?.user?.id },
         select: { id: true, role: true, tutorId: true }
     })
 
@@ -877,7 +877,7 @@ export async function createLevel(prevState: any, formData: FormData) {
                 title,
                 description,
                 orderIndex,
-                createdById: session.user.id
+                createdById: session?.user?.id
             }
         })
         revalidatePath('/instructor/curriculum')
@@ -919,7 +919,7 @@ export async function createLesson(prevState: any, formData: FormData) {
                 orderIndex,
                 xpReward,
                 isLockedDefault,
-                createdById: session.user.id
+                createdById: session?.user?.id
             }
         })
         revalidatePath('/instructor/curriculum')
