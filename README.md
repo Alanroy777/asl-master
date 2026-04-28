@@ -30,7 +30,7 @@ ASL Master is a cutting-edge educational platform designed to bridge the communi
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/asl-master.git
+   git clone https://github.com/Alanroy777/asl-master.git
    cd asl-master
    ```
 
