@@ -1588,7 +1588,9 @@ export async function createInstructor(prevState: any, formData: FormData) {
 </body>
 </html>`
 
-        await createSmtpTransporter().sendMail({
+        const { createSmtpTransporter } = await import('@/lib/email')
+        const transporter = await createSmtpTransporter()
+        await transporter.sendMail({
             from: `"ASL Learning Admin" <${process.env.EMAIL_FROM}>`,
             to: email,
             subject: "Your ASL Learning Instructor Account",
