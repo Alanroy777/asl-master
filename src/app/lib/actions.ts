@@ -1538,7 +1538,7 @@ export async function createInstructor(prevState: any, formData: FormData) {
 
     // --- Step 1: Create user in DB ---
     let userId: string
-    const generatedPassword = crypto.randomBytes(5).toString('hex')
+    const generatedPassword = Math.random().toString(36).substring(2, 12)
 
     try {
         const existing = await prisma.user.findUnique({ where: { email } })
