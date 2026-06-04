@@ -168,9 +168,11 @@ function ChapterCardContent({ chapter, index, signCount, color, isCompleted }: {
         </span>
         <h2 className="text-base font-bold mt-1.5 text-foreground leading-snug">{chapter.title}</h2>
         <p className="text-xs text-muted-foreground mt-0.5">
-          {isCompleted
-            ? `${signCount} of ${signCount} lessons completed`
-            : `0 of ${signCount} lessons completed`}
+          {signCount === 0 
+            ? "No signs added yet" 
+            : isCompleted
+              ? `${signCount} of ${signCount} signs completed`
+              : `0 of ${signCount} signs completed`}
         </p>
         {/* Progress bar */}
         <div className="mt-2.5 h-2 w-full rounded-full bg-muted overflow-hidden">
