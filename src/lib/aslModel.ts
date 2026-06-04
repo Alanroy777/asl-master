@@ -182,7 +182,7 @@ export async function recognizeSign(
   hasLandmarks: boolean
 ): Promise<{ label: string; confidence: number } | null> {
   // --- PRIORITY 1: Blueprint Engine (Smarter Geometric matching) ---
-  const validBlueprints = allowedSigns.filter(s => s.blueprint)
+  const validBlueprints = allowedSigns.filter((s): s is { name: string; blueprint: any } => !!s.blueprint)
   if (validBlueprints.length > 0) {
     const result = recognizeFromSet(frameBuffer, validBlueprints)
     if (result) return result

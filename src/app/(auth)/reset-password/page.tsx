@@ -12,7 +12,7 @@ import { useSearchParams } from 'next/navigation'
 
 function ResetPasswordForm() {
     const searchParams = useSearchParams()
-    const token = searchParams.get('token')
+    const token = searchParams?.get('token')
 
     const [errorMessage, dispatch, isPending] = useActionState(
         resetPassword,

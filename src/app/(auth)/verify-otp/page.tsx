@@ -10,7 +10,7 @@ import { useSearchParams } from 'next/navigation'
 
 function VerifyOtpForm() {
     const searchParams = useSearchParams()
-    const email = searchParams.get('email') || ''
+    const email = searchParams?.get('email') || ''
     const [errorMessage, dispatch, isPending] = useActionState(verifyOtp, null)
 
     // Refs for each digit box

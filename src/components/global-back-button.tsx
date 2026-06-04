@@ -19,7 +19,7 @@ export function GlobalBackButton() {
     // List of paths where the back button shouldn't appear
     const hiddenPaths = ['/', '/login', '/signup', '/dashboard', '/admin', '/instructor', '/games/fingerspelling', '/vocabulary', '/dictionary']
 
-    if (hiddenPaths.includes(pathname)) {
+    if (!pathname || hiddenPaths.includes(pathname)) {
         return null
     }
 
